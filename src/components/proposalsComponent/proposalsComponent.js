@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Spinner from '../spinner/spinner';
 import searchIconSvg from '../../images/search-icon.svg'
 import checkboxArrowSvg from '../../images/checkbox-arrow.svg'
-import { fetchUserData, fetchProposalData, fetchProposersData, getImageById } from '../../services/apiService';
+import { fetchUserData, fetchProposalData, fetchProposersData, getImageById, updateProposalStatusGraded } from '../../services/apiService';
 import Avatar from '../../images/User-512.webp';
 import { Link } from 'react-router-dom';
 import { DateRangePicker, Stack } from 'rsuite';
@@ -15,6 +15,7 @@ import startOfMonth from 'date-fns/startOfMonth';
 import endOfMonth from 'date-fns/endOfMonth';
 import addMonths from 'date-fns/addMonths';
 import 'rsuite/dist/rsuite-no-reset.min.css';
+import toast, { Toaster } from 'react-hot-toast';
 import '../CSS/style.css';
 
 export const logOut = () => {
@@ -111,6 +112,7 @@ function ProposalsComponent(props) {
   const [isChecked, setIsChecked] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [userRole, setUserRole] = useState(null);
+  
 
     useEffect(() => {
       const storedUserRole = localStorage.getItem('userRole');
@@ -119,6 +121,69 @@ function ProposalsComponent(props) {
       }
     }, []);
 
+    const [isPopupVisible, setPopupVisibility] = useState(false);
+    const [isPopupEditVisible, setPopupEditVisibility] = useState(false);
+    const [archiveId, setArchiveId] = useState(null);
+    const [proposalEdit, setProposalEdit] = useState(null);
+    const [proposalEditId, setProposalEditId] = useState(null);
+    
+    
+  const archiveHandler = (id) => {
+    if(userRole == 'proposer'){
+      toast( "This action required staff accessibility", {
+        duration: 4000,
+        position: 'top-center',
+      
+        style: {},
+        className: '',
+      
+        icon: 'ℹ️',
+      
+        iconTheme: {
+          primary: '#0000FF',
+          secondary: '#0000FF',
+        },
+      
+        ariaProps: {
+          role: 'status',
+          'aria-live': 'polite',
+        },
+      });
+    } else {
+      setArchiveId(id);
+      setPopupVisibility(true);
+    }
+    
+  };
+
+  const editHandler = (id, text) => {
+    if(userRole == 'proposer'){
+      toast( "This action required staff accessibility", {
+        duration: 4000,
+        position: 'top-center',
+      
+        style: {},
+        className: '',
+      
+        icon: 'ℹ️',
+      
+        iconTheme: {
+          primary: '#0000FF',
+          secondary: '#0000FF',
+        },
+      
+        ariaProps: {
+          role: 'status',
+          'aria-live': 'polite',
+        },
+      });
+    } else {
+      setProposalEdit(text);
+      setProposalEditId(id);
+      setPopupEditVisibility(true);
+    }
+    
+  };
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -410,11 +475,73 @@ function ProposalsComponent(props) {
     }
   };
 
+  const PopupNotification = () => {
+
+    const archive = async () => {
+      await updateProposalStatusGraded(archiveId, 'Archived');
+      setPopupVisibility(false);
+      setArchiveId(null);
+      window.location.reload();
+    }
+
+    const cancel = () => {
+      setPopupVisibility(false);
+      setArchiveId(null);
+    }
+
+    return (
+      <Overlay>
+        <Popup>
+          <Message>Do you want to archive this proposal?</Message>
+          <PopupButtons>
+          <PopupButton onClick={archive}>Archive</PopupButton>
+          <PopupButton onClick={cancel}>Cancel</PopupButton>
+          </PopupButtons>
+        </Popup>
+      </Overlay>
+    );
+  };
+
+  const PopupEdit = () => {
+    const save = async () => {
+
+    }
+
+    const cancel = () => {
+      setPopupEditVisibility(false);
+      setProposalEdit(null);
+      setProposalEditId(null);
+    }
+
+    return (
+      <Overlay>
+        <Popup>
+          <InputText type="text" value={proposalEdit}
+            onChange={(e) => setProposalEdit(e.target.value)}
+          />
+          <PopupButtons>
+          <PopupButton onClick={save}>Save</PopupButton>
+          <PopupButton onClick={cancel}>Cancel</PopupButton>
+          </PopupButtons>
+        </Popup>
+      </Overlay>
+    );
+  };
   
   if (loading) {
     return <Spinner />;
   }
   return (
+    <>
+    {isPopupVisible && (
+        <PopupNotification
+        />
+      )}
+
+      {isPopupEditVisible && (
+        <PopupEdit
+        />
+      )}
     <Div>
       <Div2>
       {userRole === 'staff' && <Div3>
@@ -714,10 +841,10 @@ function ProposalsComponent(props) {
                 <Divider />
                 
               <TableBody>
-                {proposals.map((item) => (
+                {proposals.map((item, index) => (
                 <TableRow>
                  
-                  <TableRowLabel className="row_number">{++rowNum}</TableRowLabel>
+                  <TableRowLabel className="row_number">{index+1}</TableRowLabel>
                   <TableRowLabel className="row_name">{proposersData[item.proposer].user.first_name}</TableRowLabel>
                   <TableRowLabel className="row_surname">{proposersData[item.proposer].user.last_name}</TableRowLabel>
                   <TableRowLabel className="row_proposal">{item.text}</TableRowLabel>
@@ -728,11 +855,13 @@ function ProposalsComponent(props) {
                       loading="lazy"
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/45ba6e34c4feb0d1b52792ce057608876be231e17318d83a73a051445a2210ec?apiKey=f933b1b419864e2493a2da58c5eeea0a&"
                       alt="Action Icon"
+                      onClick={() => archiveHandler(item.id)}
                     />
                     <ActionIcon
                       loading="lazy"
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/0539ef010e404541cac233bb9e81504535f80b90b240f64a9e5f8bd27bf3a7a1?apiKey=f933b1b419864e2493a2da58c5eeea0a&"
                       alt="Action Icon"
+                      onClick={() => editHandler(item.id, item.text)}
                     />
                   </TableRowLabel>
                 </TableRow>
@@ -748,9 +877,72 @@ function ProposalsComponent(props) {
         </Div4>
       </Div2>
     </Div>
+      <Toaster/>
+    </>
   );
 }
 
+const InputText = styled.input`
+  border:none;
+  width: 100%;
+  white-space: normal;
+  font-family: Roboto, sans-serif;
+  border-radius: 8px;
+  background-color: #f2f2f2;
+  font-weight: 300;
+  padding: 14px 0 70px 10px;
+  margin-bottom: 20px;
+  @media (max-width: 991px) {
+    max-width: 100%;
+    padding-right: 20px;
+  }
+`;
+
+const Overlay = styled.div`
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Popup = styled.div`
+  background: white;
+  z-index: 101;
+  width: 200px;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+`;
+const PopupButtons = styled.div`
+display: flex;
+  justify-content: space-around;`;
+
+const Message = styled.p`
+  font-size: 16px;
+  margin-bottom: 20px;
+`;
+
+const PopupButton = styled.button`
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
 
 const getStatusColor = (status) => {
   switch(status) {
@@ -1235,7 +1427,7 @@ const CheckboxIcon = styled.img``;
 const TableRowLabel = styled.div`
 border: 1px solid #d3d3d3;
 font-family: Roboto, sans-serif;
-font-size: 11px;
+font-size: 12px;
 display:flex;
 align-items: center;
 justify-content: center;
@@ -1391,6 +1583,7 @@ const TableRow = styled.div`
 
 
 const ActionIcon = styled.img`
+  cursor: pointer;
   aspect-ratio: 1;
   object-fit: auto;
   object-position: center;

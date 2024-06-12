@@ -224,7 +224,8 @@ function Assigned(props) {
         setUserData(userDataResponse);
       } 
       setAllProposals(allProposalsResponse);
-      setProposalData(proposalDataResponse);
+      const reversedProposals = proposalDataResponse.reverse();
+      setProposalData(reversedProposals);
       setGradingsData(gradingsDataResponse);
       
       if (proposalDataResponse.length > 0) {
@@ -785,7 +786,7 @@ const Div2 = styled.div`
 `;
 const Div3 = styled.div`
   position: fixed;
-  z-index: 100;
+  z-index: 55;
   height: 100%;
   display: flex;
   flex-basis: 0%;
@@ -1503,7 +1504,7 @@ const BackgroundOverlay = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5); /* Black with 50% opacity */
-  z-index: 5;
+  z-index: 60;
 `;
 
 const CalendarContainer = styled.div`
@@ -1511,7 +1512,7 @@ const CalendarContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 10;
+  z-index: 70;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   background-color: #fff;

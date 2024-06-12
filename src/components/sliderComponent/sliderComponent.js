@@ -44,7 +44,7 @@ function SliderComponent(props) {
     try {
       const userDataResponse = await fetchUserData();
       const proposalDataResponse = await fetchNewProposalData();
-      const reversedProposals = proposalDataResponse.reverse()
+      const reversedProposals = proposalDataResponse.reverse();
       const criteriasData = await criterias();
 
       setAllCriterias(criteriasData);

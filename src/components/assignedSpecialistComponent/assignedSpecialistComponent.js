@@ -200,7 +200,7 @@ function AssignedSpecialist(props) {
         setProposersData(proposer);
         if(proposer.user.avatar) {
           const imageResponse = await getImageById(proposer.user.avatar);
-          setProfileImageSrc(imageResponse);
+          setProfileImageSrc(imageResponse.image);
         }
         setComments(comments);
 
