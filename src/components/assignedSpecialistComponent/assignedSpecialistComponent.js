@@ -587,7 +587,6 @@ function AssignedSpecialist(props) {
                 </Column>
                 
                 <Column2>
-                  <>
                   <ContainerTwo>
                   <ProfileCardWrapper>
                   <ProfileHeader>
@@ -617,7 +616,6 @@ function AssignedSpecialist(props) {
                   ))}
                 </ProfileCardWrapper>
                 </ContainerTwo>
-                  </>
                 </Column2>
               </Div11>
             )}
@@ -749,17 +747,6 @@ const DoneButton = styled.div`
 
   &:hover {
     background-color: #edf5ff;
-  }
-`;
-const StatusItem = styled.div`
-  padding: ${(props) => (props.color === "#c90000" ? "12px 20px" : "13px 39px")};
-  font-family: Roboto, sans-serif;
-  color: ${(props) => props.color};
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${(props) =>
-      props.color === "#c90000" ? "#ebebeb" : "#edf5ff"};
   }
 `;
 
@@ -918,6 +905,7 @@ const Div6 = styled.div`
 `;
 const DropdownWrapper = styled.div`
   width: 160px;
+  z-index: 110;
 `;
 const Div7 = styled.div`
   border-radius: 8px;
@@ -1000,79 +988,6 @@ const Div10 = styled.div`
     max-width: 100%;
     margin-top: 40px;
   }
-`;
-const TableWrapper = styled.div`
-  width: 100%;
-  background-color: #fff;
-  margin-top: 17px;
-  margin-bottom: 70px;
-`;
-const TableHeader = styled.div`
-  display: flex;
-  width: 100%;
-  background-color: #fff;
-  @media (max-width: 991px) {
-    max-width: 100%;
-    flex-wrap: wrap;
-    padding-right: 20px;
-  }
-`;
-const TableHeaderLabel = styled.div`
-  background-color: #fff;
-  flex: 1;
-  padding: 4px;
-  border: 1px solid #d3d3d3;
-  font-family: Roboto, sans-serif;
-  font-size: 11px;
-  display: flex;
-  line-height: 1.3;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-`;
-const TableBody = styled.div`
-  display: flex;
-  flex-direction: column;  
-  @media (max-width: 991px) {
-    margin-right: 5px;
-  }
-`;
-const TableRow = styled.div`
-  display: flex;
-  
-  @media (max-width: 991px) {
-    max-width: 100%;
-    flex-wrap: wrap;
-  }
-`;
-const TableRowLabel = styled.div`
-border: 1px solid #d3d3d3;
-font-family: Roboto, sans-serif;
-font-size: 11px;
-padding: 8px 0;
-display:flex;
-align-items: center;
-justify-content: center;
-`;
-const SearchInput = styled.div`
-  z-index: 1;
-  margin-top: 293px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  padding: 0 15px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
-    
-  @media (max-width: 991px) {
-    flex-wrap: wrap;
-  }
-`;
-const SearchIcon = styled.img`
-  width: 16px;
-  height: 16px;
 `;
 
 const Div11 = styled.div`
@@ -1341,6 +1256,7 @@ const Comments = styled.input`
 `;
 const Column2 = styled.div`
   display: flex;
+  z-index: 100;
   flex-direction: column;
   line-height: normal;
   width: 30%;
@@ -1390,6 +1306,7 @@ const ProfileImage = styled.img`
 `;
 
 const ProfileInfo = styled.div`
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: center;

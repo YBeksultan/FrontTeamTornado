@@ -430,6 +430,7 @@ function Header() {
                 </ProposerProfile>
                 <Divider />
                 <ProposerStats>
+                  <StatWrapper>
                   <StatIcons>
                     <StatIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/48f02eb6f2e80808819e0fff01696b38bef5f88910e8b2bccfd10f5ab061d718?apiKey=76bc4e76ba824cf091e9566ff1ae9339&" alt="Stat 1" />
                     <StatIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/f5d6927b0edbfdd58a5aee8b073eb73f97b0b77500c82cba1f16c962ba60a808?apiKey=76bc4e76ba824cf091e9566ff1ae9339&" alt="Stat 2" />
@@ -442,6 +443,7 @@ function Header() {
                     <StatValue>{sumDeclined}</StatValue>
                     <StatValue>{sumArchived}</StatValue>
                   </StatValues>
+                  </StatWrapper>
                   <AwardsSection>
                     <VerticalDivider />
                     <AwardsTitle>Awards</AwardsTitle>
@@ -811,6 +813,7 @@ background-color: #fff;
 
 const ProfileColumn = styled.div`
   display: flex;
+  justify-content: center;
   flex-direction: column;
   line-height: normal;
   margin-left: 0;
@@ -822,7 +825,7 @@ const ProfileColumn = styled.div`
 
 const ProfileInfo = styled.div`
   flex-grow: 1;
-  gap: 20px;
+  justify-content: center;
 
   @media (max-width: 991px) {
     max-width: 100%;
@@ -832,11 +835,11 @@ const ProfileInfo = styled.div`
 `;
 
 const ProposerProfile = styled.div`
-  align-self: start;
   display: flex;
   margin-top: 25px;
   flex-direction: column;
-  align-items: start;
+  align-items: center;
+  justify-content: center;
   flex-grow: 1;
   flex-basis: 0;
   
@@ -849,7 +852,6 @@ const ProposerProfile = styled.div`
 
 const ProposerTitle = styled.h2`
   color: #1871ed;
-  margin-left: 50px;
   font-family: Roboto, sans-serif;
   justify-content: center;
   font-size: 25px;
@@ -858,10 +860,10 @@ const ProposerTitle = styled.h2`
 
 const ProposerImage = styled.img`
   aspect-ratio: 1.02;
+  border-radius: 50%;
   object-fit: cover;
-  width: 200px;
-  height: 200px;
-  margin-left: 50px;
+  width: 130px;
+  height: 130px;
   margin-top: 23px;
 `;
 
@@ -870,9 +872,7 @@ const ProposerName = styled.p`
   font-family: Roboto, sans-serif;
   font-size: 25px;
   font-weight: 500;
-  align-self: start;
-  margin: 20px 0 0 14px;
-  margin-left: 60px;
+  margin-top: 20px;
   @media (max-width: 991px) {
     margin-left: 10px;
   }
@@ -896,9 +896,23 @@ const Divider = styled.div`
 const ProposerStats = styled.div`
   display: flex;
   width: 230px;
-  max-width: 100%;
+  width: 100%;
+  align-self: 200px;
+  justify-content: center;
   flex-direction: column;
-  margin: 30px 0 0 49px;
+
+  @media (max-width: 991px) {
+    margin-left: 10px;
+  }
+`;
+
+const StatWrapper = styled.div`
+  display: flex;
+  width: 250px;
+  margin-top: 25px;
+  align-self: center;
+  justify-content: center;
+  flex-direction: column;
 
   @media (max-width: 991px) {
     margin-left: 10px;
@@ -907,10 +921,8 @@ const ProposerStats = styled.div`
 
 const StatIcons = styled.div`
   display: flex;
-  align-items: start;
   gap: 20px;
   justify-content: space-between;
-  padding: 0 1px;
 `;
 
 const StatIcon = styled.img`

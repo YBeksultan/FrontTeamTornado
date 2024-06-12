@@ -558,6 +558,14 @@ function Assigned(props) {
               <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#C4C4C4"><path d="M264-216h96v-240h240v240h96v-348L480-726 264-564v348Zm-72 72v-456l288-216 288 216v456H528v-240h-96v240H192Zm288-327Z"/></svg>
                   </DropdownItem>
                   </Link>
+                  <Link to={'/settings/profile'} style={{textDecoration: 'none', color: '#333'}}> 
+                  <DropdownItem>
+                  <Div8>
+                  <Div9>Settings</Div9>
+              </Div8>
+              <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#C4C4C4"><path d="m403-96-22-114q-23-9-44.5-21T296-259l-110 37-77-133 87-76q-2-12-3-24t-1-25q0-13 1-25t3-24l-87-76 77-133 110 37q19-16 40.5-28t44.5-21l22-114h154l22 114q23 9 44.5 21t40.5 28l110-37 77 133-87 76q2 12 3 24t1 25q0 13-1 25t-3 24l87 76-77 133-110-37q-19 16-40.5 28T579-210L557-96H403Zm59-72h36l19-99q38-7 71-26t57-48l96 32 18-30-76-67q6-17 9.5-35.5T696-480q0-20-3.5-38.5T683-554l76-67-18-30-96 32q-24-29-57-48t-71-26l-19-99h-36l-19 99q-38 7-71 26t-57 48l-96-32-18 30 76 67q-6 17-9.5 35.5T264-480q0 20 3.5 38.5T277-406l-76 67 18 30 96-32q24 29 57 48t71 26l19 99Zm18-168q60 0 102-42t42-102q0-60-42-102t-102-42q-60 0-102 42t-42 102q0 60 42 102t102 42Zm0-144Z"/></svg>
+                  </DropdownItem>
+                  </Link>
                   <DropdownItem onClick={logOut}>
                   <Div8>
                 <Div9>Logout</Div9>
@@ -659,14 +667,22 @@ function Assigned(props) {
                 </Column>
                 
                 <Column2>
-                <ProposerInfoWrapper>
-                <ProposerImg src={profileImageSrc || Avatar} width={'100px'} height={'100px'} alt="Profile" loading="lazy" />
-                <Link to={`/profile/${proposersData.id}`} style={{textDecoration: 'none', color: '#333'}}> 
-                <ProposerFullName>{proposersData.user.last_name} {proposersData.user.first_name}</ProposerFullName>
+                <ContainerTwo>
+                  <ProfileCardWrapper>
+                  <ProfileHeader>
+                    <ProfileImage src={profileImageSrc || Avatar} alt="Profile" loading="lazy" />
+                    <ProfileInfo>
+                    <Link to={`/profile/${proposersData.id}`} style={{textDecoration: 'none', color: '#333'}}>
+                    <ProfileName>{proposersData.user.last_name} {proposersData.user.first_name}</ProfileName>
                     </Link>
-                </ProposerInfoWrapper>
-                <OffersInfo>
-                {proposerInfo.map((item, index) => (
+                    </ProfileInfo>
+                  </ProfileHeader>
+                  <OffersSummary>
+                    <OffersTitle>Offers</OffersTitle>
+                    <TotalOffersTitle>Total offers</TotalOffersTitle>
+                  </OffersSummary>
+                  <Divider />
+                  {proposerInfo.map((item, index) => (
                     <React.Fragment key={index}>
                       <OfferItem>
                         <OfferTitle>{item.title}</OfferTitle>
@@ -678,16 +694,8 @@ function Assigned(props) {
                       {index !== proposerInfo.length - 1 && <Divider />}
                     </React.Fragment>
                   ))}
-                <OfferElements>
-                  <OfferElement className='bold'> Offers </OfferElement>
-                  <OfferElement className='bold'> Total offers</OfferElement>
-                </OfferElements>
-                <OfferElements>
-                  <OfferElement> Total sent </OfferElement>
-                  <OfferElement> Accepted</OfferElement>
-                </OfferElements>
-                </OffersInfo>
-
+                </ProfileCardWrapper>
+                </ContainerTwo>
                 </Column2>
               </Div11>
             )}
@@ -751,6 +759,7 @@ function Assigned(props) {
 
 const LogoKaizen = styled.img`
   aspect-ratio: 1.12;
+  padding: 0 5px;
   object-fit: contain;
   object-position: center;
   width: 43px;
@@ -819,6 +828,128 @@ const Container = styled.div`
   }
 
 `;
+
+const ContainerTwo = styled.div`
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  font-weight: 400;
+
+  @media (max-width: 991px) {
+    max-width: 100%;
+    margin-top: 40px;
+  }
+`;
+const ProfileCardWrapper = styled.section`
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  display: flex;
+  max-width: 596px;
+  flex-direction: column;
+  align-items: start;
+  padding: 17px;
+  @media (max-width: 991px) {
+    padding-right: 20px;
+  }
+`;
+
+const ProfileHeader = styled.header`
+  display: flex;
+  gap: 18px;
+  color: #525252;
+`;
+
+const ProfileImage = styled.img`
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 50%;
+`;
+
+const ProfileInfo = styled.div`
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const ProfileName = styled.h2`
+  font: 500 18px Roboto, sans-serif;
+  margin: 0;
+`;
+
+const Divider = styled.hr`
+  border: none;
+  border-top: 1px solid rgba(230, 230, 230, 0.5);
+  background-color: rgba(230, 230, 230, 0.5);
+  width: 100%;
+  max-width: 534px;
+  margin: 13px 0 0 14px;
+`;
+
+const OfferItem = styled.div`
+  display: flex;
+  width: 100%;
+  max-width: 299px;
+  gap: 20px;
+  font-weight: 400;
+  justify-content: space-between;
+  margin: 15px 0 0 44px;
+  @media (max-width: 991px) {
+    margin-left: 10px;
+  }
+`;
+
+const OfferTitle = styled.h4`
+  color: #525252;
+  margin: auto 0;
+  font: 14px Roboto, sans-serif;
+`;
+
+const OfferDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const OfferValue = styled.p`
+  color: #525252;
+  font: 14px Roboto, sans-serif;
+  margin: 0;
+`;
+
+const OfferDescription = styled.p`
+  color: #7b7b7b;
+  margin: 6px 0 0;
+  font: 12px Roboto, sans-serif;
+`;
+
+
+const OffersSummary = styled.div`
+  display: flex;
+  width: 100%;
+  max-width: 282px;
+  gap: 20px;
+  font-size: 16px;
+  color: #525252;
+  font-weight: 500;
+  justify-content: space-between;
+  margin: 34px 0 0 45px;
+  @media (max-width: 991px) {
+    margin-left: 10px;
+  }
+`;
+
+const OffersTitle = styled.h3`
+  font-family: Roboto, sans-serif;
+  margin: 0;
+`;
+
+const TotalOffersTitle = styled.h3`
+  font-family: Roboto, sans-serif;
+  margin: 0;
+`;
+
 
 const Button = styled.div`
   display: flex;
@@ -902,6 +1033,7 @@ const Div6 = styled.div`
   }
 `;
 const DropdownWrapper = styled.div`
+  z-index: 50;
   width: 160px;
 `;
 const Div7 = styled.div`
@@ -1338,47 +1470,21 @@ const Comments = styled.input`
 `;
 const Column2 = styled.div`
   display: flex;
-  flex-direction: column;
   z-index: 11;
-  margin-left: 30px;
-  padding: 20px;
-  margin-right: 30px;
-  width: 100%;
-  background-color: #fff;
-  border-radius: 15px;
+  flex-direction: column;
+  line-height: normal;
+  width: 30%;
+  margin-left: 20px;
   @media (max-width: 991px) {
     width: 100%;
   }
 `;
 const ProposerInfoWrapper = styled.div`
   display: flex;
-  align-items: center;
-`;
-
-const OffersInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const OfferElements = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const OfferElement = styled.div`
-  display: flex;
-  align-items: center;
-
-  &.bold {
-    font-weight: 500;
-
-  }
 `;
 const ProposerFullName = styled.div`
-  margin-left: 20px;
-  cursor: pointer;
-  font: 500 20px Roboto, sans-serif;
+  font: 500 18px Roboto, sans-serif;
+  margin: 0;
 `;
 const ProposerImg = styled.img`
   aspect-ratio: 1;
