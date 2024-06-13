@@ -137,7 +137,7 @@ function Grading(props) {
         const proposerData = await proposerDataResponse.json();
         if(proposerData.user.avatar) {
           const imageUrl = await getImageById(proposerData.user.avatar);
-          setProposerImage(imageUrl);
+          setProposerImage(imageUrl.image);
         }
         setProposersData(proposerData);
       }
