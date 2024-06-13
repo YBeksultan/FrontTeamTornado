@@ -1290,7 +1290,7 @@ const FilterWrapper = styled.div`
   height: 40px;
   
   @media (max-width: 991px) {
-    flex-wrap: wrap;
+    flex-direction: column;
   }
 `;
 
@@ -1303,7 +1303,7 @@ const SearchInput = styled.div`
   border-radius: 8px;
     
   @media (max-width: 991px) {
-    flex-wrap: wrap;
+    padding: 15x;
   }
 `;
 

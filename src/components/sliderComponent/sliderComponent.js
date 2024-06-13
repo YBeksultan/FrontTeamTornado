@@ -877,12 +877,12 @@ border:none;
   }
 `;
 const NextButton = styled.button`
+margin-right: 10px;
 &:hover {
   transform: translateY(-5px);
   color: #333;
   cursor:pointer;
   box-shadow: .0rem .2rem .4rem #777;
-  /* line I added */
   background-color:#ECF3FF;
   pointer-events: visible;
   position: relative;

@@ -788,7 +788,6 @@ const ProfileWrapper = styled.div`
   margin-left: 60px;
   border-radius: 6px;
   width: 95%;
-  height: 830px;
   margin-top: 5px;
 
   @media (max-width: 991px) {
@@ -953,6 +952,7 @@ const StatValue = styled.span`
 `;
 
 const AwardsSection = styled.div`
+  margin-left: 15px;
   display: flex;
   margin-top: 39px;
   gap: 10px;
@@ -979,7 +979,6 @@ const MainVerticalDivider = styled.div`
   border: 1px solid rgba(211, 211, 211, 1);
   background-color: #d3d3d3;
   width: 1px;
-  height: 777px;
 `;
 
 const AwardsTitle = styled.h3`
@@ -990,6 +989,7 @@ const AwardsTitle = styled.h3`
 `;
 
 const AwardsIcons = styled.div`
+  margin-left: 15px;
   display: flex;
   margin-top: 45px;
   gap: 20px;
@@ -1003,7 +1003,7 @@ const AwardsIcons = styled.div`
 const AwardIcon = styled.img`
   aspect-ratio: 1;
   object-fit: contain;
-  width: 70px;
+  width: 50px;
   align-self: start;
 `;
 
@@ -1122,6 +1122,10 @@ const JournalTitleText = styled.h2`
 `;
 
 const JournalContent = styled.div`
+  background-color: #e6efff;
+  font-weight: bold;
+  border-radius: 15px;
+  padding: 15px;
   display: flex;
   width: 505px;
   max-width: 100%;
