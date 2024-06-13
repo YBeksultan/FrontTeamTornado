@@ -1006,20 +1006,20 @@ justify-content: center;
 &.row_proposal {
   padding: 7px 0 7px 17px;
   justify-content: start;
-  width: 645px;
+  width: 615px;
   line-height: 1.5;
 }
 
 &.row_points {
   padding-left: 14px;
   justify-content: start;
-  min-width: 54px;
+  min-width: 70px;
 }
 
 &.row_grade {
   padding-left: 14px;
   justify-content: start;
-  min-width: 68px;
+  min-width: 75px;
 }
 
 &.row_date_graded {
@@ -1087,20 +1087,20 @@ const TableHeaderLabel = styled.div`
   &.header_proposals {
     padding: 7px 0 7px 17px;
     justify-content: start;
-    width: 645px;
+    width: 615px;
     line-height: 1.5;
   }
 
   &.header_points {
     padding-left: 14px;
     justify-content: start;
-    min-width: 54px;
+    min-width: 70px;
   }
 
   &.header_grade {
     padding-left: 14px;
     justify-content: start;
-    min-width: 68px;
+    min-width: 75px;
   }
 
   &.header_date_graded {
